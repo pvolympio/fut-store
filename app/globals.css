@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------
+   DESIGN TOKENS — "TÚNEL DE ACESSO"
+   Conceito: o instante entre o túnel de concreto do vestiário
+   e o estouro de luz dos refletores ao entrar em campo à noite.
+   --------------------------------------------------------- */
+:root {
+  /* Base — concreto do túnel */
+  --ink: #0a0b0d;
+  --ink-soft: #121317;
+  --surface: #17181c;
+  --surface-raised: #1e1f24;
+  --surface-overlay: #26272d;
+  --chalk: #f5f5f0;
+  --chalk-dim: #a6a7ad;
+  --border: #2b2c32;
+
+  /* Accent de assinatura — reflexo de sódio do refletor */
+  --flood: #ffc72c;
+  --flood-soft: #ffe08a;
+
+  /* Semânticos — uso restrito a estados, nunca decoração */
+  --success: #3ba55d;
+  --danger: #e5484d;
+
+  /* Tema dinâmico por time — placeholders neutros.
+     Serão sobrescritos por time na ETAPA 2 (ex: data-team="brasil"
+     define --team-primary: #009c3b etc. no escopo da página do time). */
+  --team-primary: #ffc72c;
+  --team-secondary: #0a0b0d;
+  --team-tertiary: #f5f5f0;
+  --team-on-primary: #0a0b0d;
+  --team-on-secondary: #f5f5f0;
+  --team-on-tertiary: #0a0b0d;
+
+  --font-display: "Big Shoulders Display", sans-serif;
+  --font-body: "Archivo", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  background: var(--ink);
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--flood);
+  color: var(--ink);
+}
+
+/* Foco de teclado visível — nunca removido, sempre restilizado */
+:focus-visible {
+  outline: 2px solid var(--flood);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Textura sutil de "grão" do túnel — muito discreta, nunca decorativa demais */
+.grain-overlay {
+  position: relative;
+}
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
