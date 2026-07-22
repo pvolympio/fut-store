@@ -56,11 +56,11 @@ export function HomeHero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-mono text-eyebrow uppercase text-flood mb-6 tracking-widest"
           >
-            Paulin Gostosin 🔥 · Coleção Oficial 2026/27
+            FUTREP ⚡ · Coleção Exclusiva 2026/27
           </motion.p>
 
           <h1 className="font-display font-black uppercase text-display-2xl text-chalk max-w-4xl">
-            {["Seu futebol", "ficou muito mais", "Gostosin."].map((l, i) => (
+            {["Seu futebol", "em outro nível de", "Performance."].map((l, i) => (
               <span key={l} className="block overflow-hidden">
                 <motion.span
                   custom={i}
@@ -81,7 +81,7 @@ export function HomeHero() {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="text-body text-chalk-dim max-w-md mt-8 mb-10"
           >
-            Mantos oficiais de {times.length} clubes e seleções lendárias. O estilo supremo do futebol com a garantia de qualidade Paulin Gostosin.
+            Mantos de alta performance de {times.length} clubes e seleções lendárias. O padrão supremo do futebol com a garantia de qualidade FUTREP.
           </motion.p>
 
           <motion.div

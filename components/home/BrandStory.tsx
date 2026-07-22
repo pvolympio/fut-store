@@ -46,7 +46,7 @@ export function BrandStory() {
             className="col-span-12 md:col-span-5 md:col-start-4 mt-10 md:mt-16"
           >
             <p className="text-body text-chalk-dim">
-              É nesse segundo que o Paulin Gostosin vive. O concreto ainda ecoa passos, mas o refletor já
+              É nesse segundo que a FUTREP vive. O concreto ainda ecoa passos, mas o refletor já
               queima lá fora. Cada camisa que sai daqui carrega esse instante — a torcida ainda de
               pé, o hino ainda no ar, a cor do escudo prestes a tomar o gramado inteiro.
             </p>

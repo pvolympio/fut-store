@@ -42,7 +42,7 @@ export default function AdminCamisasPage() {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <p className="font-mono text-eyebrow uppercase text-flood">
-                  Painel de Administração · Paulin Gostosin 🔥
+                  Painel de Administração · FUTREP ⚡
                 </p>
                 <span className="rounded bg-flood/10 border border-flood/30 px-2 py-0.5 font-mono text-[0.65rem] uppercase text-flood">
                   Dados Locais / Simulados
