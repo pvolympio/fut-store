@@ -10,9 +10,8 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { hrefTime } from "@/lib/utils";
 
-export function generateStaticParams() {
-  return produtos.map((p) => ({ slug: p.slug }));
-}
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const produto = getProdutoPorSlug(params.slug);

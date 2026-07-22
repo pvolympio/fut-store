@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Big_Shoulders_Display, Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -29,10 +29,37 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0A0B0D",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
   description:
     "E-commerce oficial do Paulin Gostosin. As camisas de futebol mais estilosas, raras e gostosas dos maiores clubes e seleções do planeta.",
+  keywords: ["camisas de futebol", "mantos oficiais", "brasileirao 2026", "premier league", "la liga", "paulin gostosin", "camisas retro"],
+  authors: [{ name: "Paulin Gostosin" }],
+  metadataBase: new URL("http://localhost:3000"),
+  openGraph: {
+    title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
+    description: "As camisas de futebol mais estilosas, raras e gostosas dos maiores clubes e seleções do planeta.",
+    url: "http://localhost:3000",
+    siteName: "Paulin Gostosin 🔥",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
+    description: "As camisas de futebol mais estilosas, raras e gostosas do planeta.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

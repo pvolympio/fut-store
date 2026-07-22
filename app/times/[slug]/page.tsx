@@ -7,9 +7,8 @@ import { TeamProductGrid } from "@/components/team/TeamProductGrid";
 
 const clubes = times.filter((t) => t.tipo === "clube");
 
-export function generateStaticParams() {
-  return clubes.map((t) => ({ slug: t.slug }));
-}
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const time = getTimePorSlug(params.slug);

@@ -1,21 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
 export function EmptyState({
   onLimpar,
   temaTime = false,
+  mensagemTitulo,
+  mensagemDesc,
 }: {
-  onLimpar: () => void;
+  onLimpar?: () => void;
   temaTime?: boolean;
+  mensagemTitulo?: string;
+  mensagemDesc?: string;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-center justify-center text-center gap-5 py-24 px-6 border border-dashed border-border rounded-md"
+      className="flex flex-col items-center justify-center text-center gap-5 py-24 px-6 border border-dashed border-border rounded-md bg-ink-soft/40"
     >
       <div
         className={
@@ -31,16 +36,24 @@ export function EmptyState({
       </div>
       <div>
         <p className="font-display font-bold uppercase text-display-sm text-chalk mb-2">
-          Nenhuma camisa com esses filtros
+          {mensagemTitulo || "Nenhuma camisa cadastrada com esses filtros"}
         </p>
         <p className="text-body-sm text-chalk-dim max-w-sm">
-          Tente remover algum filtro ou tamanho — o time todo está aqui, só não
-          nessa combinação exata.
+          {mensagemDesc || "Nenhum manto oficial foi cadastrado para esta combinação ainda."}
         </p>
       </div>
-      <Button variant="secondary" size="sm" onClick={onLimpar}>
-        Limpar filtros
-      </Button>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {onLimpar && (
+          <Button variant="secondary" size="sm" onClick={onLimpar}>
+            Limpar filtros
+          </Button>
+        )}
+        <Link href="/admin/camisas">
+          <Button variant="primary" size="sm">
+            ⚙️ Cadastrar Mantos no Admin
+          </Button>
+        </Link>
+      </div>
     </motion.div>
   );
 }

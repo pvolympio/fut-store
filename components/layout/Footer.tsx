@@ -142,9 +142,17 @@ export function Footer() {
                 GOSTOSIN 🔥
               </span>
             </div>
-            <p className="font-mono text-caption text-chalk-dim text-center">
-              © 2026 Paulin Gostosin. Mantos oficiais com o mais alto padrão de qualidade do futebol.
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="font-mono text-caption text-chalk-dim text-center sm:text-left">
+                © 2026 Paulin Gostosin. Mantos oficiais com o mais alto padrão de qualidade.
+              </p>
+              <Link
+                href="/admin/camisas"
+                className="font-mono text-caption text-flood hover:underline flex items-center gap-1.5 shrink-0 bg-surface px-2.5 py-1 rounded border border-border"
+              >
+                ⚙️ Gerenciador de Mantos
+              </Link>
+            </div>
           </div>
         </Container>
       </Section>

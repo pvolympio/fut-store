@@ -92,8 +92,12 @@ export function ProductExperience({ produto, temaTime = false }: { produto: Prod
               {!erroAtual && (
                 <SmartImage
                   key={view}
-                  srcBase={`/camisas/${produto.slug}${view === "costas" ? "-costas" : ""}`}
-                  alt={`${produto.nome} - ${view}`}
+                  srcBase={
+                    view === "frente"
+                      ? (produto.imagemFrente || `/camisas/${produto.timeSlug}/${produto.categoria}-frente.jpg`)
+                      : (produto.imagemCostas || `/camisas/${produto.timeSlug}/${produto.categoria}-costas.jpg`)
+                  }
+                  alt=""
                   onFallbackFailed={() => setErroAtual(true)}
                   className="absolute inset-0 w-full h-full object-cover z-[1]"
                 />

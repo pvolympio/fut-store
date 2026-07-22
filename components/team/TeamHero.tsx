@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { StadiumAtmosphere } from "@/components/theme/StadiumAtmosphere";
 
 export function TeamHero({ time }: { time: Time }) {
   const [erroEscudo, setErroEscudo] = useState(false);
@@ -25,6 +26,8 @@ export function TeamHero({ time }: { time: Time }) {
         background: `radial-gradient(circle at 80% 20%, ${time.cores.primaria}25 0%, transparent 50%), radial-gradient(circle at 10% 80%, ${time.cores.secundaria}15 0%, transparent 45%), var(--ink)`,
       }}
     >
+      {/* Atmosfera Neon de Estádio com Holofotes */}
+      <StadiumAtmosphere corPrimaria={time.cores.primaria} corSecundaria={time.cores.secundaria} intensidade="alta" />
       {/* Grade decorativa de fundo */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -72,7 +75,7 @@ export function TeamHero({ time }: { time: Time }) {
 
             {/* Subtítulo / Apelido */}
             <p className="font-mono text-body font-bold uppercase text-team-primary tracking-widest mb-6">
-              Coleção Oficial & Edições Retrô — {time.apelido}
+              Coleção Oficial 2026 & Edições Retrô — {time.apelido}
             </p>
 
             {/* Barra Tricolor da Identidade do Time */}

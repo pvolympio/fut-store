@@ -7,6 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { times, getEscudoSvg } from "@/mock/times";
 
+import { StadiumAtmosphere } from "@/components/theme/StadiumAtmosphere";
+
 const linha = {
   hidden: { y: "110%" },
   show: (i: number) => ({
@@ -26,6 +28,8 @@ export function HomeHero() {
 
   return (
     <div ref={ref} className="relative overflow-hidden border-b border-border min-h-[92vh] flex items-center">
+      {/* Atmosfera de Estádio com Holofotes Neon */}
+      <StadiumAtmosphere corPrimaria="#FACC15" corSecundaria="#E31E24" intensidade="media" />
       {/* Refletor — glow radial que remete ao conceito "túnel de acesso" */}
       <div
         aria-hidden

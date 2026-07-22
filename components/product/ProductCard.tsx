@@ -63,37 +63,61 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
         {/* "Frente" — visível por padrão */}
         {!erroFrente && (
           <SmartImage
-            srcBase={`/camisas/${produto.slug}`}
-            alt={`${produto.nome} - Frente`}
+            srcBase={produto.imagemFrente || `/camisas/${produto.timeSlug}/${produto.categoria}-frente.jpg`}
+            alt=""
             onFallbackFailed={() => setErroFrente(true)}
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-quick ease-sprint group-hover:opacity-0 z-10"
           />
         )}
         <div
-          className="absolute inset-0 flex items-center justify-center transition-opacity duration-quick ease-sprint group-hover:opacity-0"
+          className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-opacity duration-quick ease-sprint group-hover:opacity-0 text-center"
           style={{
-            background: `linear-gradient(155deg, ${produto.corFrente}33, var(--surface-raised) 70%)`,
+            background: `radial-gradient(circle at 50% 35%, ${produto.corFrente}44 0%, var(--surface-raised) 85%)`,
           }}
         >
-          <span className="font-mono text-caption text-chalk-dim/50">FRENTE · 3:4</span>
+          <div className="h-16 w-16 mb-3 rounded border border-white/10 p-2 flex items-center justify-center bg-ink/40 shadow-inner">
+            <SmartImage
+              srcBase={`/escudos/${produto.timeSlug}`}
+              alt=""
+              className="h-full w-full object-contain filter drop-shadow"
+            />
+          </div>
+          <span className="font-mono text-[0.65rem] uppercase font-bold text-chalk-dim tracking-wider mb-1">
+            {produto.categoria} · {produto.temporada}
+          </span>
+          <span className="font-mono text-[0.6rem] uppercase text-chalk-dim/50">
+            Aguardando foto da frente
+          </span>
         </div>
 
         {/* "Costas" — revelada no hover */}
         {!erroCostas && (
           <SmartImage
-            srcBase={`/camisas/${produto.slug}-costas`}
-            alt={`${produto.nome} - Costas`}
+            srcBase={produto.imagemCostas || `/camisas/${produto.timeSlug}/${produto.categoria}-costas.jpg`}
+            alt=""
             onFallbackFailed={() => setErroCostas(true)}
             className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-quick ease-sprint group-hover:opacity-100 z-10"
           />
         )}
         <div
-          className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-quick ease-sprint group-hover:opacity-100"
+          className="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-quick ease-sprint group-hover:opacity-100 text-center"
           style={{
-            background: `linear-gradient(155deg, ${produto.corCostas}40, var(--surface-raised) 70%)`,
+            background: `radial-gradient(circle at 50% 35%, ${produto.corCostas}55 0%, var(--surface-raised) 85%)`,
           }}
         >
-          <span className="font-mono text-caption text-chalk-dim/50">COSTAS · 3:4</span>
+          <div className="h-16 w-16 mb-3 rounded border border-white/10 p-2 flex items-center justify-center bg-ink/40 shadow-inner">
+            <SmartImage
+              srcBase={`/escudos/${produto.timeSlug}`}
+              alt=""
+              className="h-full w-full object-contain filter drop-shadow opacity-75"
+            />
+          </div>
+          <span className="font-mono text-[0.65rem] uppercase font-bold text-chalk-dim tracking-wider mb-1">
+            Vista Traseira
+          </span>
+          <span className="font-mono text-[0.6rem] uppercase text-chalk-dim/50">
+            Aguardando foto das costas
+          </span>
         </div>
 
         <div

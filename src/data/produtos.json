@@ -1,0 +1,56 @@
+[
+  {
+    "id": "prod-brasil-fluminense-terceira-1784678267348",
+    "slug": "brasil-fluminense-terceira-7348",
+    "nome": "Fluminense — Retro 2012",
+    "timeId": "brasil-fluminense",
+    "timeSlug": "brasil-fluminense",
+    "timeTipo": "clube",
+    "categoria": "terceira",
+    "temporada": "2012/2013",
+    "precoCentavos": 29900,
+    "precoOriginalCentavos": null,
+    "status": null,
+    "tamanhosDisponiveis": [
+      "P",
+      "M",
+      "G",
+      "GG",
+      "PP",
+      "XG"
+    ],
+    "estoqueBaixo": false,
+    "corFrente": "#7A1C2C",
+    "corCostas": "#006437",
+    "unidadesRestantes": null,
+    "imagemFrente": "/camisas/brasil-fluminense/terceira-frente.jpg?v=1784678267257",
+    "imagemCostas": "/camisas/brasil-fluminense/terceira-costas.jpg?v=1784678267341"
+  },
+  {
+    "id": "prod-brasil-fluminense-visitante-1784677536306",
+    "slug": "brasil-fluminense-visitante-6306",
+    "nome": "Fluminense — Camisa 2",
+    "timeId": "brasil-fluminense",
+    "timeSlug": "brasil-fluminense",
+    "timeTipo": "clube",
+    "categoria": "visitante",
+    "temporada": "2026/27",
+    "precoCentavos": 10000,
+    "precoOriginalCentavos": null,
+    "status": null,
+    "tamanhosDisponiveis": [
+      "P",
+      "M",
+      "G",
+      "GG",
+      "PP",
+      "XG"
+    ],
+    "estoqueBaixo": false,
+    "corFrente": "#7A1C2C",
+    "corCostas": "#006437",
+    "unidadesRestantes": null,
+    "imagemFrente": "/camisas/brasil-fluminense/visitante-frente.jpg",
+    "imagemCostas": "/camisas/brasil-fluminense/visitante-costas.jpg"
+  }
+]

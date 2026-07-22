@@ -11,7 +11,7 @@ interface SmartImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "src
  * Componente de Imagem Estrita.
  * - Camisas (/camisas/): Carrega EXCLUSIVAMENTE no formato .jpg
  * - Escudos (/escudos/): Carrega EXCLUSIVAMENTE no formato .svg
- * Se o arquivo não existir, ativa imediatamente o fallback (sem tentar outros formatos).
+ * Suporta parâmetros de busca como ?v=123 sem corromper a extensão.
  */
 export function SmartImage({
   srcBase,
@@ -25,15 +25,22 @@ export function SmartImage({
     return null;
   }
 
-  // Determina a extensão estrita
-  let finalSrc = srcBase;
-  if (!/\.(jpg|jpeg|png|webp|svg)$/i.test(srcBase)) {
-    const extensaoEstrita = srcBase.includes("/escudos/") ? ".svg" : ".jpg";
-    finalSrc = `${srcBase}${extensaoEstrita}`;
+  // Separa o caminho da imagem de eventuais parâmetros de busca (query string like ?v=123)
+  const [urlPath, queryString] = srcBase.split("?");
+  const hasQuery = queryString ? `?${queryString}` : "";
+
+  let finalPath = urlPath;
+  if (!/\.(jpg|jpeg|png|webp|svg)$/i.test(urlPath)) {
+    const extensaoEstrita = urlPath.includes("/escudos/") ? ".svg" : ".jpg";
+    finalPath = `${urlPath}${extensaoEstrita}`;
   }
+
+  const finalSrc = `${finalPath}${hasQuery}`;
 
   return (
     <img
+      loading="lazy"
+      decoding="async"
       {...props}
       src={finalSrc}
       alt={alt}
