@@ -4,7 +4,7 @@ test.describe("Fluxo de Compra Demonstrativo Completo", () => {
   test("Catálogo → Produto → Carrinho → Checkout com Frete Expresso e Pix → Confirmação", async ({ page }) => {
     // 1. Abrir o catálogo de produtos
     await page.goto("/produtos");
-    await expect(page).toHaveTitle(/Arena/i);
+    await expect(page).toHaveTitle(/FUTREP/i);
 
     // 2. Pesquisar um produto existente ("Fluminense")
     const inputBusca = page.getByPlaceholder(/buscar/i);

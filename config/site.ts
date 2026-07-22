@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "Arena Futebol Store",
-  shortName: "Arena Store",
+  name: "FUTREP",
+  shortName: "FUTREP",
   description:
-    "Experiência demonstrativa de e-commerce de camisas de futebol, desenvolvida para portfólio. Nenhum pagamento real é processado.",
+    "Experiência inovadora e demonstrativa de e-commerce de camisas de futebol, desenvolvida para portfólio. Nenhum pagamento real é processado.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://arena-futebol-store.vercel.app",
   ogImage: "/og-default.jpg",
   author: {
@@ -11,6 +11,7 @@ export const siteConfig = {
   },
   repository: "https://github.com/pvolympio/fut-store",
   keywords: [
+    "FUTREP",
     "camisas de futebol",
     "e-commerce futebol",
     "brasileirao 2026",

@@ -36,7 +36,7 @@ export function CardPreview({ numero, nome, validade, cvv, focoCvv }: CardPrevie
           <div className="flex items-start justify-between">
             <span className="h-8 w-11 rounded-sm bg-gradient-to-br from-flood-soft to-flood opacity-90" aria-hidden />
             <span className="font-display font-black uppercase text-body-sm tracking-tight">
-              Arena<span className="text-flood">.</span>
+              FUTREP<span className="text-flood">.</span>
             </span>
           </div>
 

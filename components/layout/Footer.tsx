@@ -136,15 +136,15 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="font-display font-black uppercase text-xl text-chalk">
-                PAULIN
+                FUT<span className="text-flood">.</span>
               </span>
-              <span className="rounded bg-gradient-to-r from-flood via-amber-400 to-yellow-300 text-ink font-mono text-[0.6rem] font-black uppercase px-1.5 py-0.5 shadow-sm">
-                GOSTOSIN 🔥
+              <span className="rounded bg-gradient-to-r from-flood via-amber-400 to-yellow-300 text-ink font-mono text-[0.65rem] font-black uppercase px-2 py-0.5 shadow-sm">
+                REP ⚡
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <p className="font-mono text-caption text-chalk-dim text-center sm:text-left">
-                © 2026 Arena Futebol Store · Projeto de Portfólio Demonstrativo
+                © 2026 FUTREP · Projeto de Portfólio Demonstrativo
               </p>
               <Link
                 href="/admin/camisas"

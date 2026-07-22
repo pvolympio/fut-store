@@ -77,10 +77,10 @@ export function Header() {
             className="group flex items-center gap-2 select-none"
           >
             <span className="font-display font-black uppercase text-2xl md:text-3xl tracking-tighter text-chalk group-hover:text-flood transition-colors duration-quick">
-              PAULIN
+              FUT<span className="text-flood">.</span>
             </span>
-            <span className="rounded-md bg-gradient-to-r from-flood via-amber-400 to-yellow-300 text-ink font-mono text-[0.65rem] md:text-caption font-black uppercase px-2 py-0.5 shadow-[0_0_15px_rgba(250,204,21,0.5)] transform -rotate-3 group-hover:rotate-0 group-hover:scale-110 transition-all duration-quick">
-              GOSTOSIN 🔥
+            <span className="rounded-md bg-gradient-to-r from-flood via-amber-400 to-yellow-300 text-ink font-mono text-[0.7rem] md:text-caption font-black uppercase px-2 py-0.5 shadow-[0_0_20px_rgba(250,204,21,0.6)] tracking-wider transform -rotate-2 group-hover:rotate-0 group-hover:scale-110 transition-all duration-quick border border-amber-200/50">
+              REP ⚡
             </span>
             <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-flood/40 bg-flood/10 px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-flood ml-1">
               <span className="h-1.5 w-1.5 rounded-full bg-flood animate-pulse" />

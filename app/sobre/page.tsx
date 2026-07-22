@@ -12,10 +12,10 @@ export default function SobrePage() {
             Portfólio & Engenharia
           </span>
           <h1 className="font-display font-bold uppercase text-display-lg text-chalk">
-            Sobre o Projeto Arena Store
+            Sobre o Projeto FUTREP
           </h1>
           <p className="text-body text-chalk-dim mt-3 leading-relaxed">
-            O **Arena Futebol Store** é uma plataforma e-commerce conceitual desenvolvida especificamente para demonstração técnica de portfólio. Ele simula toda a jornada de um e-commerce moderno de mantos esportivos com alto padrão visual, performance e acessibilidade.
+            O **FUTREP** é uma plataforma e-commerce conceitual desenvolvida especificamente para demonstração técnica de portfólio. Ele simula toda a jornada de um e-commerce moderno de mantos esportivos com alto padrão visual, performance e acessibilidade.
           </p>
         </div>
 

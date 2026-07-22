@@ -100,7 +100,7 @@ export default function CheckoutPage() {
             href="/"
             className="font-display font-black uppercase text-2xl tracking-tight text-chalk"
           >
-            Arena<span className="text-flood">.</span>
+            FUTREP<span className="text-flood">.</span>
           </Link>
           <span className="rounded bg-flood/10 border border-flood/30 px-3 py-1 font-mono text-caption text-flood">
             Modo Demonstrativo

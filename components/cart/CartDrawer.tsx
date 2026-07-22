@@ -115,7 +115,7 @@ export function CartDrawer() {
                     Sua sacola está vazia
                   </p>
                   <p className="text-body-sm text-chalk-dim max-w-xs">
-                    Que tal começar por um dos times mais procurados da Arena?
+                    Que tal começar por um dos times mais procurados da FUTREP?
                   </p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 w-full">

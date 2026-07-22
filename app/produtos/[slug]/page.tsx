@@ -69,7 +69,7 @@ export default function ProdutoPage({ params }: { params: { slug: string } }) {
             <Breadcrumb
               temaTime
               itens={[
-                { label: "Arena", href: "/" },
+                { label: "FUTREP", href: "/" },
                 { label: time.tipo === "clube" ? "Clubes" : "Seleções", href: hrefTime(time) },
                 { label: time.apelido, href: hrefTime(time) },
                 { label: produto.nome },

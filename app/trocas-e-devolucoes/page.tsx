@@ -23,7 +23,7 @@ export default function TrocasEDevolucoesPage() {
               1. Simulação do Prazo de Troca
             </h3>
             <p>
-              Em um e-commerce real, os clientes possuem 30 dias corridos após o recebimento para solicitar a troca do produto sem custo adicional. No Arena Store, este fluxo é demonstrado com seletores de tamanhos direto na sacola e no cartão.
+              Em um e-commerce real, os clientes possuem 30 dias corridos após o recebimento para solicitar a troca do produto sem custo adicional. No FUTREP, este fluxo é demonstrado com seletores de tamanhos direto na sacola e no cartão.
             </p>
           </div>
 

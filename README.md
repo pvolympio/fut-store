@@ -1,4 +1,4 @@
-# Arena Futebol Store ⚽🔥
+# FUTREP ⚽⚡
 
 > **E-commerce demonstrativo de camisas de futebol — projeto de portfólio.**
 

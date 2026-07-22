@@ -15,7 +15,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const time = getTimePorSlug(params.slug);
   if (!time) return {};
   return {
-    title: `${time.apelido} — Camisas Oficiais | Arena`,
+    title: `${time.apelido} — Camisas Oficiais | FUTREP`,
     description: `Camisas oficiais da ${time.nome}: titular, visitante, terceiro uniforme e retrô.`,
   };
 }

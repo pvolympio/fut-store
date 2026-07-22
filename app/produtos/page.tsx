@@ -1,12 +1,14 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import type { Metadata } from "next";
 import { ProductBrowser } from "@/components/product/ProductBrowser";
 import { produtos } from "@/mock/produtos";
 import { times, timesResumo } from "@/mock/times";
 
-export const metadata = {
-  title: "Catálogo Completo — Arena",
-  description: "Todas as camisas de clubes e seleções da Arena em um só lugar, com busca, filtro e ordenação.",
+export const metadata: Metadata = {
+  title: "Catálogo Completo — FUTREP",
+  description:
+    "Todas as camisas de clubes e seleções da FUTREP em um só lugar, com busca, filtro e ordenação.",
 };
 
 export default function CatalogoPage() {

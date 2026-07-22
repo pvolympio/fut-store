@@ -36,7 +36,7 @@ export default function FAQPage() {
             Perguntas Frequentes (FAQ)
           </h1>
           <p className="text-body text-chalk-dim mt-2">
-            Entenda como funciona o projeto Arena Futebol Store e suas principais características técnicas.
+            Entenda como funciona o projeto FUTREP e suas principais características técnicas.
           </p>
         </div>
 
