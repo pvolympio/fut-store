@@ -93,11 +93,6 @@ export function EmptyState({
             Resetar busca e filtros
           </Button>
         )}
-        <Link href="/admin/camisas">
-          <Button variant="ghost" size="sm">
-            ⚙️ Gerenciador de Mantos
-          </Button>
-        </Link>
       </div>
     </motion.div>
   );

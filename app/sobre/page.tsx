@@ -52,12 +52,6 @@ export default function SobrePage() {
             >
               Explorar Catálogo
             </Link>
-            <Link
-              href="/admin/camisas"
-              className="font-mono text-caption text-chalk hover:text-flood uppercase border border-border px-4 py-2.5 rounded transition-colors"
-            >
-              Abrir Painel Admin
-            </Link>
           </div>
         </div>
       </Container>

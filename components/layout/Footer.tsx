@@ -144,14 +144,8 @@ export function Footer() {
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <p className="font-mono text-caption text-chalk-dim text-center sm:text-left">
-                © 2026 FUTREP · Projeto de Portfólio Demonstrativo
+                © 2026 FUTREP · Todos os direitos reservados
               </p>
-              <Link
-                href="/admin/camisas"
-                className="font-mono text-caption text-flood hover:underline flex items-center gap-1.5 shrink-0 bg-surface px-2.5 py-1 rounded border border-border"
-              >
-                ⚙️ Gerenciador de Mantos
-              </Link>
             </div>
           </div>
         </Container>
