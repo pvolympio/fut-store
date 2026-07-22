@@ -7,6 +7,7 @@ import { RouteLoadingBar } from "@/components/layout/RouteLoadingBar";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { CartProvider } from "@/components/cart/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { siteConfig } from "@/config/site";
 
 const display = Big_Shoulders_Display({
   subsets: ["latin"],
@@ -37,24 +38,38 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
-  description:
-    "E-commerce oficial do Paulin Gostosin. As camisas de futebol mais estilosas, raras e gostosas dos maiores clubes e seleções do planeta.",
-  keywords: ["camisas de futebol", "mantos oficiais", "brasileirao 2026", "premier league", "la liga", "paulin gostosin", "camisas retro"],
-  authors: [{ name: "Paulin Gostosin" }],
-  metadataBase: new URL("http://localhost:3000"),
+  title: {
+    default: `${siteConfig.name} — E-commerce Demonstrativo de Futebol`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.author.name }],
+  metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
-    description: "As camisas de futebol mais estilosas, raras e gostosas dos maiores clubes e seleções do planeta.",
-    url: "http://localhost:3000",
-    siteName: "Paulin Gostosin 🔥",
+    title: `${siteConfig.name} — Mantos de Futebol (Demonstração)`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Paulin Gostosin 🔥 — Os Mantos Mais Gostosos do Futebol",
-    description: "As camisas de futebol mais estilosas, raras e gostosas do planeta.",
+    title: `${siteConfig.name} — Mantos de Futebol`,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,

@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { entregaSchema, EntregaData } from "@/lib/checkout-schemas";
+import { OPCOES_FRETE, TipoOpcaoFrete } from "@/lib/checkout-calculations";
+import { formatarPreco } from "@/mock/produtos";
 
 function maskCep(v: string) {
   return v.replace(/\D/g, "").slice(0, 8).replace(/(\d{5})(\d)/, "$1-$2");
@@ -14,10 +16,14 @@ function maskCep(v: string) {
 
 export function StepEntrega({
   valoresIniciais,
+  opcaoFreteAtual,
+  onMudarOpcaoFrete,
   onAvancar,
   onVoltar,
 }: {
   valoresIniciais: Partial<EntregaData>;
+  opcaoFreteAtual: TipoOpcaoFrete;
+  onMudarOpcaoFrete: (opcao: TipoOpcaoFrete) => void;
   onAvancar: (dados: EntregaData) => void;
   onVoltar: () => void;
 }) {
@@ -29,11 +35,21 @@ export function StepEntrega({
     formState: { errors },
   } = useForm<EntregaData>({
     resolver: zodResolver(entregaSchema),
-    defaultValues: { metodoEntrega: "padrao", ...valoresIniciais },
+    defaultValues: {
+      metodoEntrega: opcaoFreteAtual === "expresso" ? "expressa" : "padrao",
+      ...valoresIniciais,
+    },
     mode: "onBlur",
   });
 
   const metodoEntrega = watch("metodoEntrega");
+
+  const selecionarFrete = (tipo: TipoOpcaoFrete) => {
+    setValue("metodoEntrega", tipo === "expresso" ? "expressa" : "padrao", {
+      shouldValidate: true,
+    });
+    onMudarOpcaoFrete(tipo);
+  };
 
   return (
     <motion.form
@@ -95,24 +111,36 @@ export function StepEntrega({
       </div>
 
       <div>
-        <p className="font-mono text-caption uppercase tracking-[0.08em] text-chalk-dim mb-3">
+        <p className="font-mono text-caption uppercase tracking-[0.08em] text-chalk-dim mb-3" id="label-metodo-entrega">
           Método de entrega
         </p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-labelledby="label-metodo-entrega">
           {(
             [
-              { valor: "padrao", titulo: "Padrão", prazo: "5 a 8 dias úteis", preco: "Grátis" },
-              { valor: "expressa", titulo: "Expressa", prazo: "1 a 2 dias úteis", preco: "R$ 29,90" },
-            ] as const
+              {
+                valor: "padrao" as const,
+                titulo: OPCOES_FRETE.padrao.nome,
+                prazo: OPCOES_FRETE.padrao.prazo,
+                preco: "Grátis",
+              },
+              {
+                valor: "expresso" as const,
+                titulo: OPCOES_FRETE.expresso.nome,
+                prazo: OPCOES_FRETE.expresso.prazo,
+                preco: formatarPreco(OPCOES_FRETE.expresso.precoCentavos),
+              },
+            ]
           ).map((opcao) => {
-            const ativo = metodoEntrega === opcao.valor;
+            const ativo = opcaoFreteAtual === opcao.valor;
             return (
               <button
                 type="button"
                 key={opcao.valor}
-                onClick={() => setValue("metodoEntrega", opcao.valor, { shouldValidate: true })}
+                role="radio"
+                aria-checked={ativo}
+                onClick={() => selecionarFrete(opcao.valor)}
                 className={cn(
-                  "text-left rounded-md border p-4 transition-colors duration-snap ease-sprint",
+                  "text-left rounded-md border p-4 transition-colors duration-snap ease-sprint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flood",
                   ativo ? "border-flood bg-flood/5" : "border-border hover:border-chalk/40"
                 )}
               >

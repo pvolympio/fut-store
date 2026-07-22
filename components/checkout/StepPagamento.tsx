@@ -11,8 +11,7 @@ import { cn } from "@/lib/utils";
 import { formatarPreco } from "@/mock/produtos";
 import { CardPreview } from "./CardPreview";
 import { pagamentoSchema, CartaoData, PagamentoData } from "@/lib/checkout-schemas";
-
-type Metodo = "cartao" | "pix" | "boleto";
+import { MetodoPagamento, ResumoCheckout } from "@/lib/checkout-calculations";
 
 function maskNumeroCartao(v: string) {
   return v.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ").trim();
@@ -22,15 +21,18 @@ function maskValidade(v: string) {
 }
 
 export function StepPagamento({
-  totalCentavos,
+  resumo,
+  metodoAtual,
+  onMudarMetodo,
   onAvancar,
   onVoltar,
 }: {
-  totalCentavos: number;
+  resumo: ResumoCheckout;
+  metodoAtual: MetodoPagamento;
+  onMudarMetodo: (m: MetodoPagamento) => void;
   onAvancar: (dados: PagamentoData) => void;
   onVoltar: () => void;
 }) {
-  const [metodo, setMetodo] = useState<Metodo>("cartao");
   const [focoCvv, setFocoCvv] = useState(false);
 
   const {
@@ -50,34 +52,42 @@ export function StepPagamento({
   const validade = watch("validade") ?? "";
   const cvv = watch("cvv") ?? "";
 
-  const precoPix = Math.round(totalCentavos * 0.95);
-
   function submeterCartao(dados: CartaoData) {
     onAvancar({ ...dados, metodo: "cartao" });
   }
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Indicador discreto de projeto demonstrativo */}
+      <div className="rounded-md bg-flood/10 border border-flood/30 p-3.5 flex items-start gap-3">
+        <span className="text-flood font-bold text-body-sm">ℹ️</span>
+        <p className="text-caption text-chalk-dim leading-relaxed">
+          Esta é uma experiência demonstrativa para portfólio. Nenhum pagamento ou pedido real será processado.
+        </p>
+      </div>
+
       <div>
-        <p className="font-mono text-caption uppercase tracking-[0.08em] text-chalk-dim mb-3">
+        <p className="font-mono text-caption uppercase tracking-[0.08em] text-chalk-dim mb-3" id="label-forma-pagamento">
           Forma de pagamento
         </p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-labelledby="label-forma-pagamento">
           {(
             [
-              { valor: "cartao", label: "Cartão" },
-              { valor: "pix", label: "Pix" },
-              { valor: "boleto", label: "Boleto" },
-            ] as const
+              { valor: "cartao" as const, label: "Cartão" },
+              { valor: "pix" as const, label: "Pix (-5%)" },
+              { valor: "boleto" as const, label: "Boleto" },
+            ]
           ).map((opcao) => (
             <button
               key={opcao.valor}
               type="button"
-              onClick={() => setMetodo(opcao.valor)}
+              role="radio"
+              aria-checked={metodoAtual === opcao.valor}
+              onClick={() => onMudarMetodo(opcao.valor)}
               className={cn(
-                "h-11 rounded border font-mono text-caption uppercase tracking-[0.06em] transition-colors duration-snap ease-sprint",
-                metodo === opcao.valor
-                  ? "border-flood text-flood bg-flood/5"
+                "h-11 rounded border font-mono text-caption uppercase tracking-[0.06em] transition-colors duration-snap ease-sprint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flood",
+                metodoAtual === opcao.valor
+                  ? "border-flood text-flood bg-flood/5 font-bold"
                   : "border-border text-chalk-dim hover:border-chalk/40"
               )}
             >
@@ -88,7 +98,7 @@ export function StepPagamento({
       </div>
 
       <AnimatePresence mode="wait">
-        {metodo === "cartao" && (
+        {metodoAtual === "cartao" && (
           <motion.div
             key="cartao"
             initial={{ opacity: 0, y: 10 }}
@@ -156,7 +166,7 @@ export function StepPagamento({
                   <Select label="Parcelas" id="parcelas" {...register("parcelas")}>
                     {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>
-                        {n}x {formatarPreco(Math.round(totalCentavos / n))}
+                        {n}x {formatarPreco(Math.round(resumo.totalCentavos / n))}
                       </option>
                     ))}
                   </Select>
@@ -168,14 +178,14 @@ export function StepPagamento({
                   Voltar
                 </Button>
                 <Button type="submit" variant="primary" size="lg">
-                  Revisar pedido
+                  Finalizar pedido ({formatarPreco(resumo.totalCentavos)})
                 </Button>
               </div>
             </form>
           </motion.div>
         )}
 
-        {metodo === "pix" && (
+        {metodoAtual === "pix" && (
           <motion.div
             key="pix"
             initial={{ opacity: 0, y: 10 }}
@@ -184,29 +194,33 @@ export function StepPagamento({
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center text-center gap-4 py-6 border border-border rounded-md"
           >
-            <div className="h-40 w-40 rounded-md bg-surface-raised border border-border flex items-center justify-center">
-              <span className="font-mono text-caption text-chalk-dim">QR Code Pix</span>
+            <div className="h-40 w-40 rounded-md bg-surface-raised border border-border flex items-center justify-center p-2">
+              <span className="font-mono text-caption text-chalk-dim">QR Code Pix Demonstrativo</span>
             </div>
             <p className="text-body-sm text-chalk max-w-sm">
-              Escaneie o código ou use o Pix Copia e Cola. O pagamento à vista no Pix garante{" "}
-              <span className="text-flood font-semibold">5% de desconto</span>: total de{" "}
-              {formatarPreco(precoPix)}.
+              O pagamento no Pix concede <span className="text-flood font-semibold">5% de desconto</span> sobre os produtos: Total de{" "}
+              <span className="font-mono font-bold text-flood">{formatarPreco(resumo.totalCentavos)}</span>
+              {resumo.descontoPixCentavos > 0 && (
+                <span className="block text-caption text-success font-mono mt-1">
+                  Economia de {formatarPreco(resumo.descontoPixCentavos)}
+                </span>
+              )}
             </p>
             <Button variant="secondary" size="sm" type="button">
-              Copiar código Pix
+              Simular cópia de código Pix
             </Button>
-            <div className="flex items-center justify-between w-full mt-2">
+            <div className="flex items-center justify-between w-full mt-2 px-4">
               <Button variant="ghost" size="lg" onClick={onVoltar}>
                 Voltar
               </Button>
               <Button variant="primary" size="lg" onClick={() => onAvancar({ metodo: "pix" })}>
-                Revisar pedido
+                Finalizar pedido demonstrativo
               </Button>
             </div>
           </motion.div>
         )}
 
-        {metodo === "boleto" && (
+        {metodoAtual === "boleto" && (
           <motion.div
             key="boleto"
             initial={{ opacity: 0, y: 10 }}
@@ -217,15 +231,15 @@ export function StepPagamento({
           >
             <div className="h-16 w-full max-w-sm rounded-sm bg-[repeating-linear-gradient(90deg,var(--chalk)_0,var(--chalk)_2px,transparent_2px,transparent_5px)] opacity-80" />
             <p className="text-body-sm text-chalk max-w-sm">
-              O boleto vence em 3 dias úteis e pode ser pago em qualquer banco ou app. Total de{" "}
-              {formatarPreco(totalCentavos)}.
+              Boleto simulado com vencimento em 3 dias úteis. Total de{" "}
+              <span className="font-mono font-bold text-chalk">{formatarPreco(resumo.totalCentavos)}</span>.
             </p>
-            <div className="flex items-center justify-between w-full mt-2">
+            <div className="flex items-center justify-between w-full mt-2 px-4">
               <Button variant="ghost" size="lg" onClick={onVoltar}>
                 Voltar
               </Button>
               <Button variant="primary" size="lg" onClick={() => onAvancar({ metodo: "boleto" })}>
-                Revisar pedido
+                Finalizar pedido demonstrativo
               </Button>
             </div>
           </motion.div>

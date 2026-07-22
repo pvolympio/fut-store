@@ -82,6 +82,10 @@ export function Header() {
             <span className="rounded-md bg-gradient-to-r from-flood via-amber-400 to-yellow-300 text-ink font-mono text-[0.65rem] md:text-caption font-black uppercase px-2 py-0.5 shadow-[0_0_15px_rgba(250,204,21,0.5)] transform -rotate-3 group-hover:rotate-0 group-hover:scale-110 transition-all duration-quick">
               GOSTOSIN 🔥
             </span>
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-flood/40 bg-flood/10 px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-flood ml-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-flood animate-pulse" />
+              Demo Portfólio
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 h-full">

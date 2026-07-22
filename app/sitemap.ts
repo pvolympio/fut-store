@@ -1,11 +1,12 @@
 import { MetadataRoute } from "next";
 import { times } from "@/mock/times";
 import { produtos } from "@/mock/produtos";
+import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = siteConfig.url;
 
-  // Rotas estáticas principais
+  // Rotas estáticas públicas principais
   const rotasEstaticas: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -23,17 +24,41 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/sobre`,
       lastModified: new Date(),
       changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guia-de-tamanhos`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/contato`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/faq`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/style-guide`,
+      url: `${baseUrl}/trocas-e-devolucoes`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.3,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/privacidade`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
     },
   ];
 
-  // Rotas dinâmicas para todos os 123 times (clubes e seleções)
+  // Rotas dinâmicas para clubes e seleções
   const rotasTimes: MetadataRoute.Sitemap = times.map((time) => ({
     url: `${baseUrl}/${time.tipo === "clube" ? "times" : "selecoes"}/${time.slug}`,
     lastModified: new Date(),

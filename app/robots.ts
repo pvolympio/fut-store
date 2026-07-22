@@ -1,12 +1,13 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/config/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/admin/", "/admin/"],
+      disallow: ["/api/admin/", "/admin/", "/checkout/"],
     },
-    sitemap: "http://localhost:3000/sitemap.xml",
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

@@ -1,4 +1,5 @@
 import { CategoriaProduto, Produto } from "@/mock/produtos";
+import { produtoCorrespondeBusca } from "./search";
 
 export type Ordenacao = "relevancia" | "menor-preco" | "maior-preco" | "novidades";
 
@@ -30,16 +31,21 @@ export function contarFiltrosAtivos(f: FiltrosState) {
 }
 
 export function aplicarFiltros(produtos: Produto[], f: FiltrosState, busca: string): Produto[] {
-  const termo = busca.trim().toLowerCase();
   return produtos.filter((p) => {
     if (f.categorias.length && !f.categorias.includes(p.categoria)) return false;
     if (f.tamanhos.length && !p.tamanhosDisponiveis.some((t) => f.tamanhos.includes(t))) return false;
     if (f.apenasPromocao && !p.precoOriginalCentavos) return false;
     if (f.apenasEstoqueBaixo && !p.estoqueBaixo) return false;
     if (f.timeSlugs.length && !f.timeSlugs.includes(p.timeSlug)) return false;
-    if (termo && !p.nome.toLowerCase().includes(termo)) return false;
+    if (busca && !produtoCorrespondeBusca(p, busca)) return false;
     return true;
   });
+}
+
+function extrairTimestampId(p: Produto): number {
+  const match = p.id.match(/\d+$/);
+  if (match) return parseInt(match[0], 10);
+  return 0;
 }
 
 export function ordenarProdutos(produtos: Produto[], ordenacao: Ordenacao): Produto[] {
@@ -50,7 +56,18 @@ export function ordenarProdutos(produtos: Produto[], ordenacao: Ordenacao): Prod
     case "maior-preco":
       return copia.sort((a, b) => b.precoCentavos - a.precoCentavos);
     case "novidades":
-      return copia.sort((a, b) => (b.status === "novo" ? 1 : 0) - (a.status === "novo" ? 1 : 0));
+      return copia.sort((a, b) => {
+        // Produtos com status 'novo' primeiro
+        const pesoNovoA = a.status === "novo" ? 1 : 0;
+        const pesoNovoB = b.status === "novo" ? 1 : 0;
+        if (pesoNovoB !== pesoNovoA) return pesoNovoB - pesoNovoA;
+        // Depois por timestamp do ID (mais recente primeiro)
+        const tsA = extrairTimestampId(a);
+        const tsB = extrairTimestampId(b);
+        if (tsA !== tsB) return tsB - tsA;
+        // Caso os timestamps sejam 0, ordenar por temporada
+        return b.temporada.localeCompare(a.temporada);
+      });
     default:
       return copia;
   }

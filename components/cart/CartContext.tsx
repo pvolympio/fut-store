@@ -16,6 +16,7 @@ import {
   cuponsValidos,
   montarChaveItem,
 } from "@/lib/cart-types";
+import { calcularResumoCheckout } from "@/lib/checkout-calculations";
 
 const STORAGE_KEY = "arena:carrinho:v1";
 
@@ -151,24 +152,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCupom(null);
   }, []);
 
-  const quantidade = useMemo(() => itens.reduce((soma, i) => soma + i.quantidade, 0), [itens]);
-
-  const subtotalCentavos = useMemo(
-    () =>
-      itens.reduce(
-        (soma, i) =>
-          soma + (i.precoUnitarioCentavos + i.precoPersonalizacaoCentavos) * i.quantidade,
-        0
-      ),
-    [itens]
+  const resumo = useMemo(
+    () => calcularResumoCheckout({ itens, cupom }),
+    [itens, cupom]
   );
 
-  const descontoCentavos = useMemo(
-    () => (cupom ? Math.round(subtotalCentavos * cupom.percentual) : 0),
-    [subtotalCentavos, cupom]
-  );
-
-  const totalCentavos = subtotalCentavos - descontoCentavos;
+  const quantidade = resumo.quantidadeItens;
+  const subtotalCentavos = resumo.subtotalCentavos;
+  const descontoCentavos = resumo.descontoCupomCentavos;
+  const totalCentavos = resumo.totalCentavos;
 
   return (
     <CartContext.Provider
