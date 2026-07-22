@@ -2,16 +2,16 @@ export const siteConfig = {
   name: "Arena Futebol Store",
   shortName: "Arena Store",
   description:
-    "Experiência demonstrativa de alta performance para catálogo e checkout de camisas de futebol oficiais.",
+    "Experiência demonstrativa de e-commerce de camisas de futebol, desenvolvida para portfólio. Nenhum pagamento real é processado.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://arena-futebol-store.vercel.app",
   ogImage: "/og-default.jpg",
   author: {
-    name: "Desenvolvedor Full Stack",
+    name: "Paulo Victor Olympio",
     role: "Engenharia de Software / Portfólio",
   },
+  repository: "https://github.com/pvolympio/fut-store",
   keywords: [
     "camisas de futebol",
-    "mantos oficiais",
     "e-commerce futebol",
     "brasileirao 2026",
     "premier league",
@@ -21,8 +21,7 @@ export const siteConfig = {
     "portfólio next.js",
   ],
   links: {
-    github: "https://github.com",
-    portfolio: "https://portfolio-demonstrativo.dev",
+    github: "https://github.com/pvolympio",
   },
 };
 

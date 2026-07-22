@@ -15,6 +15,8 @@ interface EmptyStateProps {
   mensagemDesc?: string;
 }
 
+const sugestoes = ["Brasil", "Flamengo", "Real Madrid", "Titular", "Retrô"];
+
 export function EmptyState({
   onLimpar,
   termoBusca,
@@ -25,8 +27,6 @@ export function EmptyState({
   mensagemTitulo,
   mensagemDesc,
 }: EmptyStateProps) {
-  const sugestoes = ["Brasil", "Flamengo", "Real Madrid", "Titular", "Retrô"];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -59,18 +59,18 @@ export function EmptyState({
         </p>
       </div>
 
-      {sugestoe.length > 0 && (
+      {sugestoes.length > 0 && (
         <div className="flex flex-col items-center gap-2">
           <span className="font-mono text-caption text-chalk-dim uppercase tracking-wider">
             Sugestões de busca:
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {sugestoes.map((sugestaoname) => (
+            {sugestoes.map((sugestao) => (
               <span
-                key={sugestaoname}
+                key={sugestao}
                 className="font-mono text-caption bg-surface-raised border border-border px-2.5 py-1 rounded text-chalk-dim"
               >
-                {sugestaoname}
+                {sugestao}
               </span>
             ))}
           </div>
@@ -102,5 +102,3 @@ export function EmptyState({
     </motion.div>
   );
 }
-
-const sugestoe = ["Brasil", "Flamengo", "Real Madrid", "Titular", "Retrô"];

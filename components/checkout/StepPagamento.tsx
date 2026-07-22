@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { formatarPreco } from "@/mock/produtos";
 import { CardPreview } from "./CardPreview";
-import { pagamentoSchema, CartaoData, PagamentoData } from "@/lib/checkout-schemas";
+import { cartaoBaseSchema, CartaoData, CartaoFormInput, PagamentoData } from "@/lib/checkout-schemas";
 import { MetodoPagamento, ResumoCheckout } from "@/lib/checkout-calculations";
 
 function maskNumeroCartao(v: string) {
@@ -41,8 +41,8 @@ export function StepPagamento({
     setValue,
     watch,
     formState: { errors },
-  } = useForm<CartaoData>({
-    resolver: zodResolver(pagamentoSchema) as any,
+  } = useForm<CartaoFormInput, unknown, CartaoData>({
+    resolver: zodResolver(cartaoBaseSchema),
     defaultValues: { metodo: "cartao", parcelas: 1 },
     mode: "onBlur",
   });

@@ -30,7 +30,7 @@ export const entregaSchema = z.object({
 });
 export type EntregaData = z.infer<typeof entregaSchema>;
 
-const cartaoBaseSchema = z.object({
+export const cartaoBaseSchema = z.object({
   metodo: z.literal("cartao"),
   numeroCartao: z
     .string()
@@ -58,4 +58,5 @@ export const pagamentoSchema = z.discriminatedUnion("metodo", [
   boletoSchema,
 ]);
 export type PagamentoData = z.infer<typeof pagamentoSchema>;
-export type CartaoData = z.infer<typeof cartaoBaseSchema>;
+export type CartaoData = z.output<typeof cartaoBaseSchema>;
+export type CartaoFormInput = z.input<typeof cartaoBaseSchema>;

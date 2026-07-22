@@ -83,9 +83,7 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
     setToastFeedback(`Tam. ${tamanho} adicionado!`);
   };
 
-  const handleQuickAddClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleQuickAddClick = () => {
     if (semEstoque) return;
 
     if (tamanhos.length === 1) {
@@ -96,7 +94,7 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
   };
 
   return (
-    <motion.div
+    <motion.article
       layout
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
@@ -129,10 +127,17 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
         )}
       </AnimatePresence>
 
-      <Link
-        href={`/produtos/${produto.slug}`}
-        className="relative aspect-[3/4] block overflow-hidden bg-surface-raised"
-      >
+      {/* Área da imagem: Link da imagem e botão Quick Add como irmãos */}
+      <div className="relative aspect-[3/4] overflow-hidden bg-surface-raised">
+        <Link
+          href={`/produtos/${produto.slug}`}
+          className="absolute inset-0 z-10 block"
+          aria-label={`Ver detalhes de ${produto.nome}`}
+          tabIndex={-1}
+        >
+          <span className="sr-only">Ver detalhes de {produto.nome}</span>
+        </Link>
+
         {produto.status && (
           <Badge variant={produto.status} className="absolute top-3 left-3 z-20" />
         )}
@@ -153,7 +158,7 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
             srcBase={produto.imagemFrente || `/camisas/${produto.timeSlug}/${produto.categoria}-frente.jpg`}
             alt={produto.nome}
             onFallbackFailed={() => setErroFrente(true)}
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-quick ease-sprint group-hover:opacity-0 z-10"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-quick ease-sprint group-hover:opacity-0 z-[5]"
           />
         )}
         <div
@@ -180,7 +185,7 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
             srcBase={produto.imagemCostas || `/camisas/${produto.timeSlug}/${produto.categoria}-costas.jpg`}
             alt=""
             onFallbackFailed={() => setErroCostas(true)}
-            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-quick ease-sprint group-hover:opacity-100 z-10"
+            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-quick ease-sprint group-hover:opacity-100 z-[5]"
           />
         )}
         <div
@@ -208,7 +213,7 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
           )}
         />
 
-        {/* Botão de adição rápida ou indisponível */}
+        {/* Botão de adição rápida — irmão do Link, fora dele */}
         <button
           ref={botaoRef}
           type="button"
@@ -243,53 +248,53 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
             </div>
           )}
         </button>
-      </Link>
 
-      {/* Popover acessível para seleção rápida de tamanhos */}
-      <AnimatePresence>
-        {seletorAberto && (
-          <motion.div
-            ref={seletorRef}
-            initial={{ opacity: 0, scale: 0.92, y: 6 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 6 }}
-            role="dialog"
-            aria-label="Selecione o tamanho para adição rápida"
-            className="absolute bottom-16 right-3 z-30 bg-surface border border-border p-3 rounded-md shadow-2xl flex flex-col gap-2 max-w-[200px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[0.7rem] uppercase font-bold text-chalk-dim">
-                Selecione o tamanho:
-              </span>
-              <button
-                type="button"
-                onClick={() => setSeletorAberto(false)}
-                className="text-chalk-dim hover:text-chalk p-0.5"
-                aria-label="Fechar seletor"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5">
-              {tamanhos.map((tam) => (
+        {/* Popover acessível para seleção rápida de tamanhos */}
+        <AnimatePresence>
+          {seletorAberto && (
+            <motion.div
+              ref={seletorRef}
+              initial={{ opacity: 0, scale: 0.92, y: 6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 6 }}
+              role="dialog"
+              aria-label="Selecione o tamanho para adição rápida"
+              className="absolute bottom-16 right-3 z-30 bg-surface border border-border p-3 rounded-md shadow-2xl flex flex-col gap-2 max-w-[200px]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[0.7rem] uppercase font-bold text-chalk-dim">
+                  Selecione o tamanho:
+                </span>
                 <button
-                  key={tam}
                   type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    executarAdicao(tam);
+                  onClick={() => {
+                    setSeletorAberto(false);
+                    botaoRef.current?.focus();
                   }}
-                  className="h-8 rounded border border-border bg-surface-raised font-mono text-caption font-bold text-chalk hover:border-flood hover:text-flood transition-colors focus-visible:ring-2 focus-visible:ring-flood"
+                  className="text-chalk-dim hover:text-chalk p-0.5"
+                  aria-label="Fechar seletor"
                 >
-                  {tam}
+                  ✕
                 </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {tamanhos.map((tam) => (
+                  <button
+                    key={tam}
+                    type="button"
+                    onClick={() => executarAdicao(tam)}
+                    className="h-8 rounded border border-border bg-surface-raised font-mono text-caption font-bold text-chalk hover:border-flood hover:text-flood transition-colors focus-visible:ring-2 focus-visible:ring-flood"
+                  >
+                    {tam}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
+      {/* Informações do produto */}
       <div className="p-4 flex flex-col gap-2">
         <p className="font-mono text-caption uppercase tracking-[0.06em] text-chalk-dim">
           {categoriaLabel[produto.categoria]} · {produto.temporada}
@@ -308,6 +313,6 @@ export function ProductCard({ produto, temaTime = false, indice = 0 }: ProductCa
           )}
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }

@@ -46,9 +46,7 @@ export const metadata: Metadata = {
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.author.name }],
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: "/",
-  },
+
   openGraph: {
     title: `${siteConfig.name} — Mantos de Futebol (Demonstração)`,
     description: siteConfig.description,

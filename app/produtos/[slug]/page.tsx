@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { produtos, getProdutoPorSlug } from "@/mock/produtos";
 import { getTimePorSlug } from "@/mock/times";
 import { TeamThemeProvider } from "@/components/theme/TeamThemeProvider";
@@ -9,16 +10,47 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { hrefTime } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
-export const revalidate = 0;
-export const dynamic = "force-dynamic";
+/**
+ * Gera parâmetros estáticos para todas as páginas de produto conhecidas.
+ * Como os dados são mockados e locais, a geração estática é a estratégia mais coerente.
+ */
+export function generateStaticParams() {
+  return produtos.map((p) => ({ slug: p.slug }));
+}
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const produto = getProdutoPorSlug(params.slug);
   if (!produto) return {};
+
+  const imagemProduto = produto.imagemFrente || `/camisas/${produto.timeSlug}/${produto.categoria}-frente.jpg`;
+
   return {
-    title: `${produto.nome} | Arena`,
+    title: `${produto.nome} | ${siteConfig.shortName}`,
     description: `${produto.nome} — temporada ${produto.temporada}. Escudo bordado, tecido de alta performance, personalização com nome e número disponível.`,
+    alternates: {
+      canonical: `/produtos/${produto.slug}`,
+    },
+    openGraph: {
+      title: produto.nome,
+      description: `${produto.nome} — temporada ${produto.temporada}. Manto disponível na ${siteConfig.shortName}.`,
+      url: `/produtos/${produto.slug}`,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: imagemProduto,
+          alt: produto.nome,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: produto.nome,
+      description: `${produto.nome} — temporada ${produto.temporada}.`,
+      images: [imagemProduto],
+    },
   };
 }
 
